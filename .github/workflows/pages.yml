@@ -5,6 +5,10 @@ on:
     branches:
       - main
   workflow_dispatch:
+  repository_dispatch:
+    types: [trigger-pages-update]
+  schedule:
+    - cron: '0 * * * *'
 
 permissions:
   contents: read
@@ -27,6 +31,9 @@ jobs:
       
       - name: Setup Pages
         uses: actions/configure-pages@v5
+
+      - name: Fetch latest repository zip
+        run: python fetch_latest.py
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
