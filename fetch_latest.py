@@ -5,7 +5,11 @@ import os
 
 repo_url = "https://api.github.com/repos/RPDevs-Vault/repository.rpdev/contents/omega/zips/repository.rpdevs"
 try:
-    req = urllib.request.Request(repo_url, headers={"Accept": "application/vnd.github.v3+json"})
+    headers = {"Accept": "application/vnd.github.v3+json"}
+    if "GITHUB_TOKEN" in os.environ:
+        headers["Authorization"] = f"token {os.environ['GITHUB_TOKEN']}"
+        
+    req = urllib.request.Request(repo_url, headers=headers)
     with urllib.request.urlopen(req) as response:
         data = json.loads(response.read().decode())
         
