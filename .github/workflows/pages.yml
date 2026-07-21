@@ -32,10 +32,15 @@ jobs:
       - name: Setup Pages
         uses: actions/configure-pages@v5
 
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
       - name: Fetch latest repository zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: python fetch_latest.py
+        run: python3 fetch_latest.py
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
